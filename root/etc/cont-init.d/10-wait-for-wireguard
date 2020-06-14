@@ -1,0 +1,19 @@
+#!/usr/bin/with-contenv bash
+
+if [ -z "${ASN}" ]; then
+	echo -n "Please provide ASN and restart"
+	sleep infinity
+else
+	while true; do
+		ASN_NOW="$(curl -s ifconfig.co/asn)"
+		echo -n "Checks ${ASN} vs ${ASN_NOW}..."
+		if [ "${ASN_NOW}" != "${ASN}" ]; then
+			echo "wrong"
+			sleep 10;
+		else
+			echo "ok"
+			break
+		fi
+	done
+fi
+
